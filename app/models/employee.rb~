@@ -1,0 +1,4 @@
+class Employee < ActiveRecord::Base
+  belongs_to :office
+  attr_accessible :name, :post
+end

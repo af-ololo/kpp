@@ -1,0 +1,7 @@
+  <tr>
+    <td><%= employee.name %></td>
+    <td><%= employee.post %></td>
+    <td><%= link_to 'Show', [employee.office, employee] %></td>
+    <td><%= link_to 'Edit', edit_office_employee_path(employee.office, employee) %></td>
+    <td><%= link_to 'Destroy', [employee.office, employee], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
