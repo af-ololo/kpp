@@ -1,6 +1,8 @@
 class OfficesController < ApplicationController
 
   # before_filter :authenticate, :except => [:index]
+  
+  before_filter :authenticate_admin!
 
   # GET /offices
   # GET /offices.json

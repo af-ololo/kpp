@@ -1,8 +1,16 @@
 KppControlSystem::Application.routes.draw do
 
+  devise_for :users
+
+  devise_for :admins
+  
   resources :offices do
     resources :employees
   end
+  
+  resources :users
+  
+  resources :visits
 
   #get "home/index"
   root :to => "home#index"
