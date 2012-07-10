@@ -1,7 +1,8 @@
-<%= form_for([@office, @office.employees.build]) do |f| %>
+<%= form_for([@employee.office, @employee]) do |f| %>
   <% if @employee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h2>
+    <div class="alert alert-error">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <h3><%= pluralize(@employee.errors.count, "error") %> prohibited this employee from being saved:</h3>
 
       <ul>
       <% @employee.errors.full_messages.each do |msg| %>
@@ -12,18 +13,14 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label Имя %>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :post %><br />
+    <%= f.label Должность %>
     <%= f.text_field :post %>
   </div>
-  <div class="field">
-    <%= f.label :office %><br />
-    <%= collection_select(:employee, :office_id, Office.all, :id, :name) %>
-  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn btn-primary' %> <%= link_to 'Отмена', office_employees_path(@employee.office), :class => 'btn' %>
   </div>
 <% end %>

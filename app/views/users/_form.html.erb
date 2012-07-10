@@ -1,6 +1,7 @@
-<%= form_for(@user) do |f| %>
+<%= form_for([@user.office, @user]) do |f| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
+    <div id="alert alert-error">
+      <a class="close" data-dismiss="alert">&#215;</a>
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
@@ -12,10 +13,14 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :office %><br />
-    <%= f.text_field :office %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.text_field :password %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn btn-primary' %> <%= link_to 'Отмена', users_path, :class => 'btn' %>
   </div>
 <% end %>

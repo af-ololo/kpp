@@ -43,11 +43,11 @@ class VisitsController < ApplicationController
   # POST /visits
   # POST /visits.json
   def create
-    @visit = Visit.new(params[:visit])
+    @visit = current_user.office.visits.new( :employee => Employee.find(params[:visit][:employee]), :inout => params[:visit][:inout] )
 
     respond_to do |format|
       if @visit.save
-        format.html { redirect_to @visit, notice: 'Visit was successfully created.' }
+        format.html { redirect_to visits_path, notice: 'Visit was successfully created.' }
         format.json { render json: @visit, status: :created, location: @visit }
       else
         format.html { render action: "new" }

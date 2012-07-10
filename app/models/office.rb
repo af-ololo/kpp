@@ -6,5 +6,6 @@ class Office < ActiveRecord::Base
 			:length => { :minimum => 5 }
 
   has_many :employees
-  has_many :visits, :through => :employee
+  has_many :users
+  has_many :visits
 end

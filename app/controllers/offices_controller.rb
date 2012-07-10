@@ -49,7 +49,7 @@ class OfficesController < ApplicationController
 
     respond_to do |format|
       if @office.save
-        format.html { redirect_to offices_path, notice: 'Office was successfully created.' }
+        format.html { redirect_to new_office_user_path(@office), notice: 'Office was successfully created. Now create an account for office KPP manager.' }
         format.json { render json: @office, status: :created, location: @office }
       else
         format.html { render action: "new" }

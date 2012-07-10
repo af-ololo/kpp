@@ -2,9 +2,15 @@
   <%= @employees.first.office.name %>
 </h1>
 
-<p>
-  <%= @employees.first.office.address %>
-</p>
+<div style="text-align: center; padding-bottom: 25px;">
+    <%= @employees.first.office.address %>
+  &nbsp; &nbsp;
+    <% if @employees.first.office.users.empty? %>
+      Работник КПП: <%= link_to 'Создать аккаунт', new_office_user_path(@employees.first.office) %>
+    <% else %>
+      Работник КПП: <%= link_to @employees.first.office.users.first.email, edit_user_path(@employees.first.office.users.first) %>
+    <% end %>
+</div>
 
 <h2>Сотрудники отделения</h2>
 
@@ -13,13 +19,12 @@
   <tr>
     <td><%= employee.name %></td>
     <td><%= employee.post %></td>
-    <td><%= link_to 'Show', [employee.office, employee] %></td>
-    <td><%= link_to 'Edit', edit_office_employee_path(employee.office, employee) %></td>
-    <td><%= link_to 'Destroy', [employee.office, employee], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Изменить', edit_office_employee_path(employee.office, employee) %></td>
+    <td><%= link_to 'Удалить', [employee.office, employee], method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Employee', new_office_employee_path %>
+<%= link_to 'Добавить сотрудника', new_office_employee_path, :class => 'btn' %>

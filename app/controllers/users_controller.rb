@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_admin!
+
   # GET /users
   # GET /users.json
   def index
@@ -24,7 +26,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
-    @user = User.new
+    @user = Office.find(params[:office_id]).users.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,11 +42,11 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = Office.find(params[:office_id]).users.new(:email => params[:user][:email], :password => params[:user][:password])
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user.office, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -60,7 +62,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user.office, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

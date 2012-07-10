@@ -1,19 +1,10 @@
 <h1>Отделения</h1>
 
 <table>
-  <tr>
-    <th>Название</th>
-    <th>Адрес</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
 <% @offices.each do |office| %>
   <tr>
-    <td><%= office.name %></td>
+    <td><%= link_to office.name, office_employees_path(office) %></td>
     <td><%= office.address %></td>
-    <td><%= link_to 'Подробнее', office %></td>
     <td><%= link_to 'Изменить', edit_office_path(office) %></td>
     <td><%= link_to 'Удалить', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
@@ -22,4 +13,4 @@
 
 <br />
 
-<%= link_to 'Добавить', new_office_path %>
+<%= link_to 'Добавить', new_office_path, :class => 'btn' %>

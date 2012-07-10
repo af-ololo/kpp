@@ -1,5 +1,5 @@
 class Visit < ActiveRecord::Base
-  has_one :office
-  has_one :employee
-  attr_accessible :inout
+  attr_accessible :inout, :employee
+  belongs_to :office
+  belongs_to :employee
 end

@@ -1,10 +1,20 @@
 KppControlSystem::Application.routes.draw do
-  resources :offices
 
-  resources :employees
+  devise_for :users, :controller => { :sessions => 'users/sessions' }
+
+  devise_for :admins
+  
+  resources :offices do
+    resources :employees
+    resources :users
+  end
+
+  resources :visits
+
+  resources :users
 
   #get "home/index"
-  root :to => "home#index"
+  root :to => "users#sign_in"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

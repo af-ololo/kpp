@@ -12,12 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :office %><br />
-    <%= f.text_field :office %>
-  </div>
-  <div class="field">
     <%= f.label :employee %><br />
-    <%= f.text_field :employee %>
+    <%= f.select :employee, options_from_collection_for_select(Employee.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :inout %><br />

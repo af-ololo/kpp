@@ -3,7 +3,9 @@ class Office < ActiveRecord::Base
 
   validates :name,	:presence => true
   validates :address,	:presence => true,
-			:length => { :minimum => 10 }
+			:length => { :minimum => 5 }
 
   has_many :employees
+  has_many :users
+  has_many :visits, :through => :employee
 end
