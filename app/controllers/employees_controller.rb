@@ -5,8 +5,12 @@ class EmployeesController < ApplicationController
   # GET /employees
   # GET /employees.json
   def index
+  if params[:office_id].nil?
+    @employees = Employee.all
+  else
     @office = Office.find(params[:office_id])
     @employees = @office.employees
+  end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,8 +32,14 @@ class EmployeesController < ApplicationController
   # GET /employees/new
   # GET /employees/new.json
   def new
+  if params[:office_id].nil?
+    @employee = Employee.new
+    @back = employees_path
+  else
     @office = Office.find(params[:office_id])
     @employee = @office.employees.new
+    @back = @office
+  end
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,18 +50,30 @@ class EmployeesController < ApplicationController
   # GET /employees/1/edit
   def edit
     @employee = Employee.find(params[:id])
-
+    if params[:office_id].nil?
+      @back = employees_path
+    else
+      @back = Office.find(params[:office_id])
+    end
   end
 
   # POST /employees
   # POST /employees.json
   def create
+  if params[:office_id].nil?
+    @employee = Employee.new(params[:employee])
+  else
     @office = Office.find(params[:office_id])
     @employee = @office.employees.new(params[:employee])
+  end
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to office_employees_path(@office), notice: 'Employee was successfully created.' }
+        format.html { if @office.nil?
+                        redirect_to employees_path, notice: 'Employee was successfully created.'
+                      else
+                        redirect_to @office, notice: 'Employee was successfully created.'
+                      end }
         format.json { render json: @employee, status: :created, location: @employee }
       else
         format.html { render action: "new" }
@@ -67,7 +89,11 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.update_attributes(params[:employee])
-        format.html { redirect_to office_employees_path(@employee.office), notice: 'Employee was successfully updated.' }
+        format.html { if @office.nil?
+                        redirect_to employees_path, notice: 'Employee was successfully updated.'
+                      else
+                        redirect_to office_employees_path(@office), notice: 'Employee was successfully updated.'
+                      end }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -80,11 +106,15 @@ class EmployeesController < ApplicationController
   # DELETE /employees/1.json
   def destroy
     @employee = Employee.find(params[:id])
-    @office = @employee.office
+    if @employee.office.nil?
+      @back = employees_path
+    else
+      @back = @employee.office
+    end
     @employee.destroy
 
     respond_to do |format|
-      format.html { redirect_to @office }
+      format.html { redirect_to @back }
       format.json { head :no_content }
     end
   end

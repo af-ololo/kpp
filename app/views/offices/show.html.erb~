@@ -22,4 +22,4 @@
 
 <br />
 
-<%= link_to 'Добавить сотрудника', new_office_employee_path(@office), :class => 'btn' %><p id="notice"><%= notice %></p>
+<%= link_to 'Добавить сотрудника', new_office_employee_path(@office), :class => 'btn' %>

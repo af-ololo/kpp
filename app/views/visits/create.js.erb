@@ -1,0 +1,8 @@
+<% if @visit.errors.any? %>
+  <% flash[:error] = 'Что-то ужасное призошло =(' %>
+  $('div.span12:first').prepend('<%= render 'layouts/messages' %>');
+<% else %>
+  $('table#visits').prepend('<%= escape_javascript( render @visit ) %>');
+  $('.big-input').val('');
+  $('.big-input').focus();
+<% end %>

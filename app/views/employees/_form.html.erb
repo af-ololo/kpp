@@ -1,4 +1,10 @@
-<%= form_for([@employee.office, @employee]) do |f| %>
+<% if @employee.office.nil?
+     @form_path = @employee
+   else
+     @form_path = [@employee.office, @employee]
+   end %>
+
+<%= form_for(@form_path) do |f| %>
   <% if @employee.errors.any? %>
     <div class="alert alert-error">
       <a class="close" data-dismiss="alert">&#215;</a>
@@ -21,6 +27,6 @@
     <%= f.text_field :post %>
   </div>
   <div class="actions">
-    <%= f.submit :class => 'btn btn-primary' %> <%= link_to 'Отмена', office_employees_path(@employee.office), :class => 'btn' %>
+    <%= f.submit :class => 'btn btn-primary' %> <%= link_to 'Отмена', @back, :class => 'btn' %>
   </div>
 <% end %>

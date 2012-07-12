@@ -1,30 +1,12 @@
-<h1>
-  <%= @employees.first.office.name %>
-</h1>
-
-<div style="text-align: center; padding-bottom: 25px;">
-    <%= @employees.first.office.address %>
-  &nbsp; &nbsp;
-    <% if @employees.first.office.users.empty? %>
-      Работник КПП: <%= link_to 'Создать аккаунт', new_office_user_path(@employees.first.office) %>
-    <% else %>
-      Работник КПП: <%= link_to @employees.first.office.users.first.email, edit_user_path(@employees.first.office.users.first) %>
-    <% end %>
-</div>
-
-<h2>Сотрудники отделения</h2>
+<h1>Сотрудники</h1>
 
 <table>
 <% @employees.each do |employee| %>
   <tr>
-    <td><%= employee.name %></td>
-    <td><%= employee.post %></td>
-    <td><%= link_to 'Изменить', edit_office_employee_path(employee.office, employee) %></td>
-    <td><%= link_to 'Удалить', [employee.office, employee], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to employee.name, employee_visits_path(employee) %><br /><span style="font-size: 12px;"><%= employee.post %></span></td>
+    <td><%= if !employee.office.nil?; link_to employee.office.name, employee.office; end %></td>
+    <td><%= link_to 'Изменить', edit_employee_path(employee) %></td>
+    <td><%= link_to 'Удалить', employee_url(employee), :method => :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'Добавить сотрудника', new_office_employee_path, :class => 'btn' %>

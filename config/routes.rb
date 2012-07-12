@@ -9,6 +9,10 @@ KppControlSystem::Application.routes.draw do
     resources :users
   end
 
+  resources :employees do
+    resources :visits
+  end
+
   resources :visits
 
   resources :users

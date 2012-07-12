@@ -1,25 +1,22 @@
-<%= form_for(@visit) do |f| %>
+<%= form_for @visit, :remote => true, :update => '#feedback', :class => 'form-inline' do |f| %>
   <% if @visit.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@visit.errors.count, "error") %> prohibited this visit from being saved:</h2>
 
-      <ul>
+      <ul style="text-align: left; font-size: 14px;">
       <% @visit.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
+  <div class="well" style="padding: 10px;">Кто тут?
+    <!-- %= f.text_field :employee, :class => 'big-input typeahead' % -->
+    <input class="big-input typeahead" id="visit_employee" name="visit[employee]" size="30" type="text" data-provide="typeahead" data-items="<%= @employees_names.count.to_s %>" data-source="<%= @employees_names.to_json %>">
+    <button class="btn" name="visit[inout]" value="in"><i class='icon-arrow-right'></i> Пришел</button> или 
+    <button class="btn" name="visit[inout]" value="out"><i class='icon-arrow-left'></i> Уходит</button>
+  </div>
 
-  <div class="field">
-    <%= f.label :employee %><br />
-    <%= f.select :employee, options_from_collection_for_select(Employee.all, :id, :name) %>
-  </div>
-  <div class="field">
-    <%= f.label :inout %><br />
-    <%= f.text_field :inout %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>
+
+<div id="feedback"></div>

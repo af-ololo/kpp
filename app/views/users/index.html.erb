@@ -1,4 +1,4 @@
-<h1>Работники КПП</h1>
+<h1>Аккаунты работников КПП</h1>
 
 <table>
   <tr>
@@ -11,7 +11,7 @@
   <tr>
     <td><%= link_to user.email, edit_user_path(user) %></td>
     <td><%= user.office.name %></td>
-    <td><%= link_to 'Удалить', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Удалить', user, method: :delete, data: { confirm: 'Вы действительно хотите удалить аккаунт этого пользователя? В таком случае работник КПП этого отделения не сможет авторизоваться в системе, пока для него не будет создан новый аккаунт' } %></td>
   </tr>
 <% end %>
 </table>
